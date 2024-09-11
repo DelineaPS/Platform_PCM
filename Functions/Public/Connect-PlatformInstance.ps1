@@ -242,6 +242,7 @@ function global:Connect-PlatformInstance
 					$e.AddData("IdpRedirectUrl",$InitialResponseResult.Result.Challenges.Mechanisms.IdpRedirectUrl)
 					$e.AddData("InitialResponseResult",$InitialResponseResult)
 					$global:LastConnect_Error = $e
+					throw "Error encountered, check `$LastConnect_Error for more info."
 				}
 
 				# preparing the body response back to Platform
@@ -263,6 +264,7 @@ function global:Connect-PlatformInstance
 					$e.AddData("bodyresponse",$bodyresponse)
 					$e.AddData("callbackattempt",$callbackattempt)
 					$global:LastConnect_Error = $e
+					throw "Error encountered, check `$LastConnect_Error for more info."
 				}
 
 				# getting values from the first after saml attempt
@@ -291,6 +293,7 @@ function global:Connect-PlatformInstance
 					$e.AddData("callbackattempt",$callbackattempt)
 					$e.AddData("redirectattempt",$redirectattempt)
 					$global:LastConnect_Error = $e
+					throw "Error encountered, check `$LastConnect_Error for more info."
 				}
 
 				# preparing the next round of data
@@ -317,6 +320,7 @@ function global:Connect-PlatformInstance
 					$e.AddData("redirectattempt",$redirectattempt)
 					$e.AddData("voidattempt",$voidattempt)
 					$global:LastConnect_Error = $e
+					throw "Error encountered, check `$LastConnect_Error for more info."
 				}
 
 				# preparing the json body
@@ -346,6 +350,7 @@ function global:Connect-PlatformInstance
 					$e.AddData("jsonbody",$jsonbody)
 					$e.AddData("YAuth",$YAuth)
 					$global:LastConnect_Error = $e
+					throw "Error encountered, check `$LastConnect_Error for more info."
 				}
 
 				# preparing new data
@@ -381,6 +386,7 @@ function global:Connect-PlatformInstance
 					$e.AddData("YAuth",$YAuth)
 					$e.AddData("LastAuth",$LastAuth)
 					$global:LastConnect_Error = $e
+					throw "Error encountered, check `$LastConnect_Error for more info."
 				}
 
 				# getting the final bit of data
