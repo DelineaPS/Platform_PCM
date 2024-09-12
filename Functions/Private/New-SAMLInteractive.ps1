@@ -12,7 +12,7 @@ function New-SAMLInteractive{
 
         $SamlMatch     = '(?i)name="SAMLResponse"(?: type="hidden")? value=\"(.*?)\"(?:.*)?\/>'
         $RelayMatch    = '(?i)name="RelayState"(?: type="hidden")? value=\"(.*?)\"(?:.*)?\/>'
-        $CallBackMatch = '(?i)name="hiddenform"(?: type="hidden")? action=\"(.*?)\"(?:.*)?\/>'
+        $CallBackMatch = '(?i)<form .*?action="(https.*?)".*>'
 
         Add-Type -AssemblyName System.Windows.Forms 
         Add-Type -AssemblyName System.Web
@@ -55,7 +55,8 @@ function New-SAMLInteractive{
 
                         if ($web.DocumentText -match $CallBackMatch){
 
-                            $Script:CallBackUrl = $(($Matches[1]  -replace '&#x2b;', '+') -replace '&#x3d;', '=')
+                            # replacing bad characters in the callback url
+                            $Script:CallBackUrl = $(((($Matches[1]  -replace '&#x2b;', '+') -replace '&#x3d;', '=') -replace '&#x3a;', ':') -replace '&#x2f;', '/')
 
                         }
                     }
