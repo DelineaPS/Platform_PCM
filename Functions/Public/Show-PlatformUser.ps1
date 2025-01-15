@@ -64,7 +64,7 @@ function global:Show-PlatformUser
 	# preparing the json data
 	$Json = @{}
 	$Json.Entities    = $Entities
-	$Json.EmailInvite = $true
+	$Json.EmailInvite = $false
 	$Json.SmsInvite   = $false
 
 	Try
