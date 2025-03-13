@@ -45,26 +45,26 @@ function global:Prepare-PlatformImportCSVPayload
     [CmdletBinding(DefaultParameterSetName="Default")]
     param
     (
-        [Parameter(Mandatory = $true, HelpMessage = ".")]
+        [Parameter(Mandatory = $true, HelpMessage = "The Secret Template ID to use.")]
         [System.Int32]$TemplateId,
 
-        [Parameter(Mandatory = $true, HelpMessage = ".")]
+        [Parameter(Mandatory = $true, HelpMessage = "The specially prepared CSV data string.")]
         [System.String]$CSV,
 
-        [Parameter(Mandatory = $false, HelpMessage = ".")]
+        [Parameter(Mandatory = $false, HelpMessage = "The type of Import to use. Only CSV is currently supported.")]
         [ValidateSet("CSV")]
         [System.String]$ImportType = "CSV",
 
-        [Parameter(Mandatory = $false, HelpMessage = ".")]
+        [Parameter(Mandatory = $false, HelpMessage = "Add in the option to specify which folder the secrets will be created in.")]
         [System.Boolean]$ImportWithFolder = $true,
 
-        [Parameter(Mandatory = $false, HelpMessage = ".")]
+        [Parameter(Mandatory = $false, HelpMessage = "Import with Totp option.")]
         [System.Boolean]$ImportWithTotp = $false,
 
-        [Parameter(Mandatory = $false, HelpMessage = ".")]
+        [Parameter(Mandatory = $false, HelpMessage = "Specify to allow newly created secrets to inherit the folder's permissions.")]
         [System.Boolean]$inheritFolderPermissions = $true,
 
-        [Parameter(Mandatory = $false, HelpMessage = ".")]
+        [Parameter(Mandatory = $false, HelpMessage = "Change the new secrets' passwords immediately after creation.")]
         [System.Boolean]$ChangeRemotePasswords = $false
     )
 
