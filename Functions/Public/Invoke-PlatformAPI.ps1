@@ -65,8 +65,12 @@ function global:Invoke-PlatformAPI
         [System.String]$Body,
 
         [Parameter(Mandatory = $false, HelpMessage = "Method to use on the Invoke-WebRequest.")]
-        [ValidateSet("GET","POST","PATCH","OPTIONS")]
-        [System.String]$Method = "POST"
+        [ValidateSet("GET","POST","PATCH","OPTIONS","PUT")]
+        [System.String]$Method = "POST",
+
+        [Parameter(Mandatory = $false, HelpMessage = "Specify the API call to make.", ParameterSetName = "Default")]
+        [Parameter(Mandatory = $false, HelpMessage = "Specify the API call to make.", ParameterSetName = "Override")]
+        [Switch]$KeepResponse
 
     )
 
@@ -109,26 +113,41 @@ function global:Invoke-PlatformAPI
         # if the response was successful, some Platform endpoints have a Response property as part of the response
         if ($Response.Success)
         {
-            # return the results
-            return $Response.Result
-        }
+            if ($Response.Result -ne $null)
+            {
+                # return the results
+                return $Response.Result
+            }
+            if ($Response.records -ne $null) # this is for Secret Server responses
+            {
+                return $Response.records
+            }
+
+            return $Response
+        }# if ($Response.Success)
         else
         {
             # otherwise return the response
             return $Response
         }
-
     }# Try
     Catch
     {
         $e = New-Object PlatformPCMException -ArgumentList ("A Platform error has occured. Check `$LastPlatformPCMError for more information")
-		$e.AddAPIData($ApiCall, $Method, $Body, $response)
+		$e.AddAPIData($ApiCall, $Method, $Body, $Response)
 		$e.AddExceptionData($_)
         $e.AddData("OverrideUriAPI",$OverrideUriAPI)
         Write-Error $_.Exception.Message
 		$global:LastPlatformPCMError = $e
 		return $e
     }# Catch
+    Finally
+    {
+        if ($KeepResponse.isPresent)
+        {
+            $global:LastPlatformResponse = $Response
+        }
+    }# Finally
 }# function global:Invoke-PlatformAPI 
 #endregion
 ###########
