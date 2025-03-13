@@ -17,6 +17,9 @@ function global:Is-FolderMissing
     .PARAMETER Name
     Specify the name of the folder to check if it is missing. Only exact name matches will work.
 
+    .PARAMETER FolderId
+    Specify the id of the folder to check if it is missing.
+
     .INPUTS
     None. You can't pipe input to this function.
 
