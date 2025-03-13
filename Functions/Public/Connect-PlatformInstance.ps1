@@ -590,6 +590,9 @@ function global:Connect-PlatformInstance
 
 							# removing the identity part of the pod FQDN
 							$Connection.PodFqdn = $Connection.PodFqdn -replace '/identity',''
+							
+							# adding in a shortname
+							$Connection | Add-Member -MemberType NoteProperty -Name TenantHostName -Value $Connection.PodFqdn.Split(".")[0]
 
 							# Set Connection as global
 							$Global:PlatformConnection = $Connection
