@@ -97,7 +97,7 @@ function global:Import-PlatformSecretsFromCsv
         Write-Host "$((Get-Date).ToString()) : $($get.statusMessage), Percent Complete: $(("{0:P2}" -f ($get.percentageComplete/100)))"
         Start-Sleep -Milliseconds 750
 
-        $get = Invoke-PlatformAPI -OverrideUriAPI "$($PlatformConnection.Shortname).secretservercloud.com/api/v1/bulk-operations/$($taskidentifier)/progress" -Method Get
+        $get = Invoke-PlatformAPI -OverrideUriAPI "$($PlatformConnection.TenantHostName).secretservercloud.com/api/v1/bulk-operations/$($taskidentifier)/progress" -Method Get
     }
 
     Write-Host "Done"
