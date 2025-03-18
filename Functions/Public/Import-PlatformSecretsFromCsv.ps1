@@ -82,13 +82,13 @@ function global:Import-PlatformSecretsFromCsv
         -ImportwithTotp $ImportWithTotp -inheritFolderPermissions $inheritFolderPermissions -ChangeRemotePasswords $ChangeRemotePasswords
     
     # submitting the csv import data
-    $results = Invoke-PlatformAPI -OverrideUriAPI "$($PlatformConnection.Shortname).secretservercloud.com/api/v1/secrets/import-csv-process" -Body $payloadline
+    $results = Invoke-PlatformAPI -OverrideUriAPI "$($PlatformConnection.TenantHostName).secretservercloud.com/api/v1/secrets/import-csv-process" -Body $payloadline
 
     # getting the task identifier for this import job
     $taskidentifier = $results.taskidentifier
 
     # initial getting the progress of the import job
-    $get = Invoke-PlatformAPI -OverrideUriAPI "$($PlatformConnection.Shortname).secretservercloud.com/api/v1/bulk-operations/$($taskidentifier)/progress" -Method Get
+    $get = Invoke-PlatformAPI -OverrideUriAPI "$($PlatformConnection.TenantHostName).secretservercloud.com/api/v1/bulk-operations/$($taskidentifier)/progress" -Method Get
 
     # while the job is not complete
     while ($get.isComplete -ne $true)
