@@ -78,7 +78,7 @@ function global:Import-PlatformSecretsFromCsv
     $csvdataline = Prepare-PlatformImportCsvData -CsvData $CSV
 
     # preparing the payload line
-    $payloadline = Prepare-PlatformImportPayload -TemplateId $TemplateId -CSV $csvdataline -ImportType $ImportType -ImportWithFolder $ImportWithFolder `
+    $payloadline = Prepare-PlatformImportCSVPayload -TemplateId $TemplateId -CSV $csvdataline -ImportType $ImportType -ImportWithFolder $ImportWithFolder `
         -ImportwithTotp $ImportWithTotp -inheritFolderPermissions $inheritFolderPermissions -ChangeRemotePasswords $ChangeRemotePasswords
     
     # submitting the csv import data
